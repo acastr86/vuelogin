@@ -5,7 +5,7 @@ import UndrawLogin from "vue-undraw/UndrawLogin.vue";
 import useAuth from "../composable/useAuth";
 import useError from "../composable/useError";
 
-const {isAuthenticated, login} = useAuth();
+const {isAuthenticated, login, signup} = useAuth();
 
 const username = ref("");
 const password = ref("");
@@ -14,6 +14,15 @@ const router = useRouter();
 
 const logginIn = async () => {
     await login(username.value,  password.value);
+    goToHome();
+};
+
+const signingUp = async () => {
+    await signup(username.value,  password.value);
+    goToHome();
+};
+
+const goToHome = () => {
     if(isAuthenticated.value) {
         router.push("/");
     } else {
@@ -40,7 +49,11 @@ const {ready, start} = useTimeout(3000, { controls: true });
               placeholder="Username" v-model="username" />
               <input type="password" class="p-2 border-2 rounded-lg"
               placeholder="Password" v-model="password" />
-              <button @submit.prevent="logginIn" type="submit" class="py-2 text-blue-200 bg-blue-600 rounded-lg">Login</button>
+              <div class="flex space-x-2">
+                  <button @submit.prevent="logginIn" type="submit" class="w-1/2 py-2 text-blue-200 bg-blue-600 rounded-lg">Login</button>
+                  <button @click="signingUp" class="w-1/2 py-2 text-yellow-200 bg-yellow-600 rounded-lg">Sign Up</button>
+              </div>
+              
         </form>
     </div>
     <div v-if="!ready && error" class="absolute w-1/3 p-4 text-center text-red-800 transition-opacity duration-1000 bg-red-300 rounded-lg bottom-2 right-2"
