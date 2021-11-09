@@ -10,7 +10,7 @@ const {isAuthenticated ,user} = useAuth();
     <h2 v-if="!isAuthenticated" class="text-6xl tracking-tighter font-extralight">Welcome</h2>
      <h2 v-else class="text-6xl tracking-tighter font-extralight">
          Welcome {{user}}</h2>
-    <UndrawWelcome primary-color='#41B883' height='400px' />
+    <UndrawWelcome height='400px' />
 </div>
     
 </template>
