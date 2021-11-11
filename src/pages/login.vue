@@ -5,7 +5,7 @@ import UndrawLogin from "vue-undraw/UndrawLogin.vue";
 import useAuth from "../composable/useAuth";
 import useError from "../composable/useError";
 
-const {isAuthenticated, login, signup} = useAuth();
+const {isAuthenticated, login, signup, googleLogin} = useAuth();
 
 const username = ref("");
 const password = ref("");
@@ -19,6 +19,11 @@ const logginIn = async () => {
 
 const signingUp = async () => {
     await signup(username.value,  password.value);
+    goToHome();
+};
+
+const google = async () => {
+    await googleLogin();
     goToHome();
 };
 
@@ -53,7 +58,9 @@ const {ready, start} = useTimeout(3000, { controls: true });
                   <button @submit.prevent="logginIn" type="submit" class="w-1/2 py-2 text-blue-200 bg-blue-600 rounded-lg">Login</button>
                   <button @click="signingUp" class="w-1/2 py-2 text-yellow-200 bg-yellow-600 rounded-lg">Sign Up</button>
               </div>
-              
+              <button @click="google" class="flex justify-center py-2 bg-white rounded-lg hover:bg-blue-200 ">
+                  <img src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg" alt="">
+              </button>
         </form>
     </div>
     <div v-if="!ready && error" class="absolute w-1/3 p-4 text-center text-red-800 transition-opacity duration-1000 bg-red-300 rounded-lg bottom-2 right-2"
